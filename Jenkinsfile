@@ -1,12 +1,9 @@
 pipeline {
-    agent any
-
+    agent: any
     stages {
-        stage ('Build Image') {
+        stage('Example') {
             steps {
-                script {
-                    dockerapp = docker.build("")
-                }
+                echo 'verificando conexao'
             }
         }
     }
