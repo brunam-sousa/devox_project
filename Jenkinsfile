@@ -1,5 +1,7 @@
 pipeline {
-    agent { docker { image 'python:3.12.1-alpine3.19'}}
+    agent { 
+        docker { image 'python:3.10-alpine3.18'}
+    }
     stages {
         stage('Test Code Coverage - Pylint') {
             steps {
