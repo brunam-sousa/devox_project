@@ -1,0 +1,5 @@
+{% if error is not defined %}
+  <p>Do you want to <a href="{{ url_for('auth.index') }}">log in?</a>
+{% elif error == 'None' %}
+  <h1>Bem Vindo Fulano</h1>
+{% endif %}  
