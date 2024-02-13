@@ -1,10 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Example') {
+        stage('Test Code Coverage - Pylint') {
             steps {
-                echo 'verificando conexao'
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                sh 'python -m pylint devox'
             }
         }
     }
