@@ -2,7 +2,7 @@ pipeline {
     agent { 
         docker {
             image 'python:3.10-alpine3.18'
-            label 'node-controller'
+            label 'node-docker'
         }
     }
     stages {
