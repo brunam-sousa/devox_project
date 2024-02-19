@@ -1,22 +1,12 @@
 from flask import (
-    Blueprint, redirect, render_template, request, session, url_for, flash)
-
+    Blueprint, redirect, render_template, request, url_for, flash)
+from flask_login import login_user, LoginManager
 from .users import User
-
-#flask-login provides user session management
-#from flask_login import LoginManager
 
 
 bp_auth = Blueprint('auth', __name__, template_folder='templates', url_prefix='/auth')
-#bp = Blueprint('auth', __name__, url_prefix='/teste')
 
-#login_m = LoginManager()
-#login_m.init_app(app)
-# used to reload the user object from the user ID stored in the session
-# return 'None' if ID is not valid
-#@login_m.user_loader
-#def load_user(user_id):
-#    return User.get(user_id)
+login_m = LoginManager()
 
 @bp_auth.route('/index', methods=('GET', 'POST'))
 def index():
@@ -27,10 +17,13 @@ def index():
 @bp_auth.route('/login')
 def login():
     error = None
+    username = request.form.get('username')
+    password = request.form.get('password')
 
-    if request.form.get('username') == User.username and request.form.get('password') == User.password:
-        flash('You were successfully logged in')
-        return redirect(url_for('pages.home'))
+    if  username == 'bruna' and  password == 'teste':
+        user = User()
+        login_user(user)
+        return redirect(url_for('pages.profile'))
     else:
         error = 'Dados de usuario e/ou senha incorreto(s)'
         flash(error)

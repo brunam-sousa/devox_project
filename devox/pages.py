@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from flask_login import login_required
 
 # blueprint are modules that contain related views
 
@@ -15,3 +16,8 @@ def home():
 @bp_pages.route("/about")
 def about():
     return render_template("pages/about.html")
+
+@bp_pages.route('/profile')
+@login_required
+def profile():
+    return render_template("pages/home.html")
