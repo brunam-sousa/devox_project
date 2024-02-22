@@ -2,7 +2,7 @@ pipeline {
     agent { 
         label 'agent1'
         }
-    }
+
     stages {
         stage('Configurin environment') { // configuring necessary packages and modules
             steps {
