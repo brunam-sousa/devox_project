@@ -18,8 +18,10 @@ pipeline {
     }
     post{
         failure{
-             //archiveArtifacts(artifacts: 'target/*.jar', fingerprint: true)
-             msg = "Build error for ${env.JOB_NAME} ${env.BUILD_NUMBER} (${env.BUILD_URL})"
+            script{
+                //archiveArtifacts(artifacts: 'target/*.jar', fingerprint: true)
+                msg = "Build error for ${env.JOB_NAME} ${env.BUILD_NUMBER} (${env.BUILD_URL})"
+            }
         }
     }
 }
