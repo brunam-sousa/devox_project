@@ -4,16 +4,17 @@ pipeline {
         }
 
     stages {
-        stage('Configurin environment') { // configuring necessary packages and modules
+        stage('Configuring environment') { // configuring necessary packages and modules
             steps {
                 sh 'python -m venv devox'
                 sh 'pip install -r requirements.txt'              
             }
         }
-        stage ('Test - Pylint') // executing pylint to test the code
+        stage ('Test - Pylint') {// executing pylint to test the code
             steps{
                 sh 'pylint devox'
             }
+        }
     }
     post{
         failure{
