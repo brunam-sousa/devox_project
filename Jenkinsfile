@@ -7,6 +7,7 @@ pipeline {
         stage('Configuring environment') { // configuring necessary packages and modules
             steps {
                 sh 'python -m venv devox'
+                sh 'source devox/bin/activate'
                 sh 'pip install -r requirements.txt'              
             }
         }
