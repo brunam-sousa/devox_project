@@ -6,9 +6,9 @@ pipeline {
     stages {
         stage('Configuring environment') { // configuring necessary packages and modules
             steps {
-                sh 'python3 -m venv venv'
+                //sh 'python3 -m venv venv'
                 sh 'source venv/bin/activate'
-                sh 'pip install -r requirements.txt'              
+                sh 'pip install -r requirements.txt -t venv/lib/python3.11/site-packages'              
             }
         }
         stage ('Test - Pylint') {// executing pylint to test the code
