@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Devox - {% block title %}{% endblock title %}</title>
+  </head>
+  <body>
+
+    <h1>User Page</h1>
+    <p> Hello {{ current_user.name }}</p>
+    {% include("user_pages/_left_navigation.html") %}
+
+
+
+  {% block content %}{% endblock content %}
+  
+  </body>
+</html>

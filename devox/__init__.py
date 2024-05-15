@@ -1,33 +1,46 @@
+import os
+# file '__init__' will tells Python that the 'devox' directory should be treated as a package
 from flask import Flask
 
-
-# function "create_app" is a Application Factory
-# create a function named create_app that initializes the app and returns it
+# using Application Factory
+# create a function named create_app that initializes and configure the app and returns it
 def create_app():
-    # define a instance folder ( a folder outside that hold local data)
+
     app = Flask(__name__)
-    #app = Flask(__name__, instance_relative_config=True, instance_path='/home/bruna/devox_conf')
-    app.config['SECRET_KEY'] = 'dev'
+    #app.config['SECRET_KEY'] = 'dev'
+    app.config.from_mapping(
+    SECRET_KEY='dev',
+    DATABASE=os.path.join(app.instance_path, 'devox.sqlite')
+    )
 
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+
+    # importing modules and initializing
+    from . import db
+    db.init_app(app) # command to initialize the DB: $ flask --app flaskr init-db
+
+    from . import bpauth
+    # configuring the LoginManager object
+    bpauth.login_manager.init_app(app)
+
+
+    # import blueprints
+    #from . import bpauth
+    from . import pages    
     
-    # importing modules
-    from devox import pages    
-    from .authentication import auth
-    from .authentication.auth import login_m
-    from .authentication.users import User
-
-    login_m.init_app(app)
-
-    @login_m.user_loader
-    def load_user(user_id):
-        user = User()
-        return user    
-        
     """ Blueprint registrations """
-    # connect the "pages" blueprint with the flask project
+    # connect the blueprint with the flask project
     app.register_blueprint(pages.bp_pages)
-    #registering blueprint
-    app.register_blueprint(auth.bp_auth)
+    app.register_blueprint(bpauth.bp_auth)
     """ end of Blueprint registrations """
+
+    #@login_m.user_loader
+    #def load_user(user_id):
+    #    user = User()
+    #    return user    
 
     return app
